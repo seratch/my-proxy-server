@@ -12,20 +12,21 @@ import (
 
 var port string
 var authEnabled bool
-var username string
-var password string
+var validUsername string
+var validPassword string
 
 var rootCmd = &cobra.Command{
 	Use:   "my-proxy-server",
 	Short: "Run a simple HTTP proxy server",
-	Run: func (cmd *cobra.Command, _args []string) {
+	Run: func(cmd *cobra.Command, _args []string) {
 		proxy := goproxy.NewProxyHttpServer()
 		proxy.Verbose = true
 		if authEnabled {
-			goproxyAuth.ProxyBasic(proxy, "my-realm", func(user, pwd string) bool {
-				return user == username && password == pwd
+			goproxyAuth.ProxyBasic(proxy, "my-realm", func(username, password string) bool {
+				return validUsername == username &&
+					validPassword == password
 			})
-			log.Print(fmt.Sprintf("localhost:%s (auth: %s:%s)", port, username, password))
+			log.Print(fmt.Sprintf("localhost:%s (auth: %s:%s)", port, validUsername, validPassword))
 		} else {
 			log.Print(fmt.Sprintf("localhost:%s", port))
 		}
@@ -49,18 +50,18 @@ func Execute() {
 		"Enable proxy auth (Basic Auth)",
 	)
 	rootCmd.PersistentFlags().StringVarP(
-		&username,
+		&validUsername,
 		"username",
 		"u",
 		"user",
-		"Basic auth username (default: user)",
+		"Basic auth validUsername (default: user)",
 	)
 	rootCmd.PersistentFlags().StringVarP(
-		&password,
+		&validPassword,
 		"password",
 		"p",
 		"pass",
-		"Basic auth password (default: pass)",
+		"Basic auth validPassword (default: pass)",
 	)
 
 	if err := rootCmd.Execute(); err != nil {
