@@ -40,28 +40,28 @@ func Execute() {
 		"port",
 		"P",
 		"9000",
-		"HTTP proxy port (default: 9000)",
+		"set HTTP proxy port (default: 9000)",
 	)
 	rootCmd.PersistentFlags().BoolVarP(
 		&authEnabled,
 		"auth",
 		"a",
 		false,
-		"Enable proxy auth (Basic Auth)",
+		"enable proxy authentication (Basic Auth)",
 	)
 	rootCmd.PersistentFlags().StringVarP(
 		&validUsername,
 		"username",
 		"u",
 		"user",
-		"Basic auth validUsername (default: user)",
+		"set Basic Auth username (default: user)",
 	)
 	rootCmd.PersistentFlags().StringVarP(
 		&validPassword,
 		"password",
 		"p",
 		"pass",
-		"Basic auth validPassword (default: pass)",
+		"set Basic Auth password (default: pass)",
 	)
 
 	if err := rootCmd.Execute(); err != nil {
