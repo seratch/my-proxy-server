@@ -35,28 +35,29 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() {
-	rootCmd.PersistentFlags().StringVarP(
+	flags := rootCmd.PersistentFlags()
+	flags.StringVarP(
 		&port,
 		"port",
 		"P",
 		"9000",
 		"set HTTP proxy port (default: 9000)",
 	)
-	rootCmd.PersistentFlags().BoolVarP(
+	flags.BoolVarP(
 		&authEnabled,
 		"auth",
 		"a",
 		false,
 		"enable proxy authentication (Basic Auth)",
 	)
-	rootCmd.PersistentFlags().StringVarP(
+	flags.StringVarP(
 		&validUsername,
 		"username",
 		"u",
 		"user",
 		"set Basic Auth username (default: user)",
 	)
-	rootCmd.PersistentFlags().StringVarP(
+	flags.StringVarP(
 		&validPassword,
 		"password",
 		"p",
